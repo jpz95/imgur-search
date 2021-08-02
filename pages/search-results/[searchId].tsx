@@ -5,6 +5,7 @@ import styles from '../../styles/pages/SearchResults.module.scss'
 
 import SearchBar from '../../components/SearchBar/SearchBar'
 import ImageResult from './ImageResult'
+import FullImageModal from './FullImageModal'
 
 const SearchResult = (props: Props) => {
   const root = useRef(null)
@@ -26,9 +27,15 @@ const SearchResult = (props: Props) => {
   }, 3000)
 
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [modalData, setModalData] = useState({})
 
   const openImageInModal = (imageResult) => {
     setIsModalOpen(true)
+    setModalData({ ...imageResult })
+  }
+
+  const handleModalClose = () => {
+    setIsModalOpen(false)
   }
 
   return (
@@ -37,36 +44,24 @@ const SearchResult = (props: Props) => {
         <SearchBar></SearchBar>
       </header>
       <main className={styles.searchResults}>
-        {results.map((result) => (
+        {results.map((result: any) => (
           <ImageResult
             url={result.url}
             likes={result.likes}
             title={result.title}
             key={result.id}
-            onClick={() => openImageInModal(result)}
+            onClick={openImageInModal}
           ></ImageResult>
         ))}
       </main>
-      {/* {typeof window !== 'undefined' && root?.current && <Modal
-        actions={[
-          // eslint-disable-next-line react/jsx-key
-          <Button flat modal="close" node="button" waves="green">Close</Button>
-        ]}
-        bottomSheet={false}
-        fixedFooter={false}
-        header="Modal Header"
-        open={isModalOpen}
-        options={{
-          dismissible: true,
-          endingTop: '10%',
-          inDuration: 250,
-          opacity: 0.5,
-          outDuration: 250,
-          preventScrolling: true,
-          startingTop: '4%'
-        }}
-        root={root.current}
-      ></Modal>} */}
+      {typeof window !== 'undefined' && root?.current &&
+        <FullImageModal
+          imageData={null}
+          isModalOpen={isModalOpen}
+          onCloseEnd={handleModalClose}
+          root={root}
+        />
+      }
     </div>
   )
 }

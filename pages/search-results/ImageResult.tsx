@@ -4,8 +4,11 @@ import { Icon } from 'react-materialize'
 import styles from './ImageResult.module.scss'
 
 const ImageResult = (props) => {
+  const handleOnClick = () => {
+    props.onClick(props)
+  }
   return (
-    <div className={styles.imageResult}>
+    <div className={styles.imageResult} onClick={handleOnClick}>
       <div className={styles.imageContainer}>
         <Image
           src={props.url}
