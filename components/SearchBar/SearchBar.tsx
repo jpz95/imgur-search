@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router';
-import Link from 'next/link'
 
 import { Icon } from 'react-materialize'
 
@@ -9,6 +8,14 @@ const searchResultsBaseRoute = '/search-results';
 const SearchBar = () => {
   const router = useRouter()
   const [searchResultsHref, setSearchResultsHref] = useState(searchResultsBaseRoute);
+
+  const getSearchResults = () => {
+    if (!value) {
+      return;
+    }
+
+    router.push(searchResultsHref)
+  }
 
   const [value, setValue] = useState("")
 
@@ -27,12 +34,13 @@ const SearchBar = () => {
 
   const handleOnKeyDown = (event) => {
     if (event.key === 'Enter') {
-      router.push(searchResultsHref)
+      getSearchResults();
     }
   }
 
   return (
     <div className="searchBar">
+      <Icon className="searchBarIcon" onClick={getSearchResults}>search</Icon>
       <input
         type="text"
         className="searchBarInput"
@@ -41,9 +49,6 @@ const SearchBar = () => {
         onKeyDown={handleOnKeyDown}
         value={value}
       />
-      <Link href={searchResultsHref} passHref>
-        <Icon className="searchBarIcon">search</Icon>
-      </Link>
     </div>
   )
 }
