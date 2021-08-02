@@ -1,0 +1,17 @@
+.modal {
+  height: 80%;
+  width: 80%;
+}
+
+.modalContent {
+  // 24px of padding
+  height: calc(100% - 24px);
+  display: flex;
+  flex-direction: column;
+}
+
+.imageContainer {
+  flex: 1;
+  display: flex;
+  position: relative;
+}

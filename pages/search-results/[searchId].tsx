@@ -23,7 +23,7 @@ const SearchResult = (props: Props) => {
       { url: 'https://i.imgur.com/Wp90pG0.jpg', likes: 9, id: 9, title: 'kitty' },
       { url: 'https://i.imgur.com/Wp90pG0.jpg', likes: 10, id: 10, title: 'kitty' },
     ])
-  }, 3000)
+  }, 1500)
 
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [modalData, setModalData] = useState({})
@@ -55,7 +55,7 @@ const SearchResult = (props: Props) => {
       </main>
       {typeof window !== 'undefined' && root?.current &&
         <FullImageModal
-          imageData={null}
+          imageData={modalData}
           isModalOpen={isModalOpen}
           onCloseEnd={handleModalClose}
           root={root}
