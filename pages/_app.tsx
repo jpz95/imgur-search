@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import 'materialize-css/dist/css/materialize.min.css'
-import '../styles/index.css'
+import '../styles/index.scss'
 import type { AppProps } from 'next/app'
 
 function MyApp({ Component, pageProps }: AppProps) {
