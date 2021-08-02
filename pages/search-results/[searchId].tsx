@@ -1,5 +1,4 @@
 import { useRef, useState } from 'react'
-import { Modal, Button } from 'react-materialize'
 
 import styles from '../../styles/pages/SearchResults.module.scss'
 

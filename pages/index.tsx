@@ -8,12 +8,6 @@ import SearchBar from '../components/SearchBar/SearchBar'
 export default function Home() {
   return (
     <div className={styles.container}>
-      <Head>
-        <title>Imgur Search</title>
-        <meta name="description" content="Search Imgur's image database" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
       <main className={styles.main}>
         <SearchBar></SearchBar>
       </main>
