@@ -325,7 +325,7 @@ const SearchResult = () => {
   const router = useRouter()
   const { searchId = '' } = router.query
 
-  const query = Array.isArray(searchId) ? searchId.join('/') : searchId
+  const query = Array.isArray(searchId) ? searchId.join(' ') : searchId
 
   const { data: results, state } = useImgurGallerySearch(query, {
     page: 1
