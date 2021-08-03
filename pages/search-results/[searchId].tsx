@@ -6,29 +6,31 @@ import SearchBar from '../../components/SearchBar/SearchBar'
 import ImageResult from './ImageResult'
 import FullImageModal from './FullImageModal'
 
-const SearchResult = (props: Props) => {
+import type { ImageResult as ImageResultType } from '../../types/search-results'
+
+const SearchResult = (_props: Props) => {
   const root = useRef(null)
 
-  const [results, setResults] = useState([])
+  const [results, setResults] = useState<Array<ImageResultType>>([])
   setTimeout(() => {
     setResults([
-      { url: 'https://i.imgur.com/Wp90pG0.jpg', likes: 1, id: 1, title: 'kitty' },
-      { url: 'https://i.imgur.com/Wp90pG0.jpg', likes: 2, id: 2, title: 'kitty' },
-      { url: 'https://i.imgur.com/Wp90pG0.jpg', likes: 3, id: 3, title: 'kitty' },
-      { url: 'https://i.imgur.com/Wp90pG0.jpg', likes: 4, id: 4, title: 'kitty' },
-      { url: 'https://i.imgur.com/Wp90pG0.jpg', likes: 5, id: 5, title: 'kitty' },
-      { url: 'https://i.imgur.com/Wp90pG0.jpg', likes: 6, id: 6, title: 'kitty' },
-      { url: 'https://i.imgur.com/Wp90pG0.jpg', likes: 7, id: 7, title: 'kitty' },
-      { url: 'https://i.imgur.com/Wp90pG0.jpg', likes: 8, id: 8, title: 'kitty' },
-      { url: 'https://i.imgur.com/Wp90pG0.jpg', likes: 9, id: 9, title: 'kitty' },
-      { url: 'https://i.imgur.com/Wp90pG0.jpg', likes: 10, id: 10, title: 'kitty' },
+      { link: 'https://i.imgur.com/YWXcMt7.jpg', score: 1, id: "1", title: 'kitty' },
+      { link: 'https://i.imgur.com/YWXcMt7.jpg', score: 2, id: "2", title: 'kitty' },
+      { link: 'https://i.imgur.com/YWXcMt7.jpg', score: 3, id: "3", title: 'kitty' },
+      { link: 'https://i.imgur.com/YWXcMt7.jpg', score: 4, id: "4", title: 'kitty' },
+      { link: 'https://i.imgur.com/YWXcMt7.jpg', score: 5, id: "5", title: 'kitty' },
+      { link: 'https://i.imgur.com/YWXcMt7.jpg', score: 6, id: "6", title: 'kitty' },
+      { link: 'https://i.imgur.com/YWXcMt7.jpg', score: 7, id: "7", title: 'kitty' },
+      { link: 'https://i.imgur.com/YWXcMt7.jpg', score: 8, id: "8", title: 'kitty' },
+      { link: 'https://i.imgur.com/YWXcMt7.jpg', score: 9, id: "9", title: 'kitty' },
+      { link: 'https://i.imgur.com/YWXcMt7.jpg', score: 10, id: "10", title: 'kitty' },
     ])
   }, 1500)
 
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [modalData, setModalData] = useState({})
 
-  const openImageInModal = (imageResult) => {
+  const openImageInModal = (imageResult: ImageResultType) => {
     setIsModalOpen(true)
     setModalData({ ...imageResult })
   }
@@ -45,8 +47,8 @@ const SearchResult = (props: Props) => {
       <main className={styles.searchResults}>
         {results.map((result: any) => (
           <ImageResult
-            url={result.url}
-            likes={result.likes}
+            url={result.link}
+            likes={result.score}
             title={result.title}
             key={result.id}
             onClick={openImageInModal}
