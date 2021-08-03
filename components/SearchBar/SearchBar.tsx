@@ -19,7 +19,7 @@ const SearchBar = (props: SearchBarProps) => {
     router.push(searchResultsHref)
   }
 
-  const [value, setValue] = useState("")
+  const [value, setValue] = useState(props.value || "")
 
   useEffect(() => {
     setSearchResultsHref(`${searchResultsBaseRoute}/${value}`)

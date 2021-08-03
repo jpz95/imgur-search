@@ -334,7 +334,7 @@ const SearchResult = () => {
   return (
     <div className={styles.searchResult} ref={root}>
       <header>
-        <SearchBar></SearchBar>
+        <SearchBar value={query}></SearchBar>
       </header>
       <main className={styles.searchResults}>
         {state === 'loading' && (
