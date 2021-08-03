@@ -14,3 +14,17 @@
   margin-top: 1.5em;
   overflow-y: auto;
 }
+
+.loader {
+  display: flex;
+  justify-self: center;
+  grid-column: 1 / -1;
+  margin-top: 2em;
+}
+
+.errorMessage {
+  display: flex;
+  place-content: center;
+  grid-column: 1 / -1;
+  color: #424242;
+}

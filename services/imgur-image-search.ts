@@ -2,23 +2,37 @@ import type ImgurGallerySearchOptions from '../types/services/ImgurGallerySearch
 
 const baseUrl = 'https://api.imgur.com/3'
 
-export async function getGallerySearch(queryString: string, options: ImgurGallerySearchOptions) {
+const headers = new Headers()
+headers.append('Authorization', `Client-ID ${process.env.NEXT_PUBLIC_CLIENT_ID}`)
+
+export function getGallerySearch(queryString: string, options?: ImgurGallerySearchOptions) {
   const basePath = '/gallery/search'
 
-  const pathWithOptions = Object.keys(options)
+  const pathWithOptions = Object.keys(options || {})
     .reduce(
-      (accumulator: string, key: keyof ImgurGallerySearchOptions) => {
-        const path = options[key];
+      (accumulator: string, path: keyof ImgurGallerySearchOptions) => {
         if (!path) {
           return accumulator
         }
+
         return `${accumulator}/${path}`
       },
       basePath
     )
 
-  const params = new URLSearchParams({ q: queryString });
-
+  const params = new URLSearchParams({ q: queryString })
   const url = new URL(`${baseUrl}${pathWithOptions}?${params}`).toString()
-  return fetch(url)
+
+  const requestOptions = {
+    method: 'GET',
+    headers
+  }
+
+  return fetch(url, requestOptions).then(async response => {
+    const jsonResponse = await response.json()
+    if (!jsonResponse.success) {
+      return []
+    }
+    return jsonResponse.data
+  })
 }

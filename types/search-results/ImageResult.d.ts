@@ -7,6 +7,7 @@ type ImageResult = {
   datetime: number
   link: string
   score: number
+  ups: number
   views: number
   account_url: string
   images_count: number
