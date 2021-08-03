@@ -1,7 +1,7 @@
 import Image from "next/image"
 import { Button, Modal, Icon } from "react-materialize"
 
-import FullImageModalProps from "./FullImageModalProps"
+import FullImageModalProps from "../../types/search-results/FullImageModalProps"
 
 import styles from "./FullImageModal.module.scss"
 
