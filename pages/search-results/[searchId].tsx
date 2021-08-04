@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { useRouter } from 'next/router'
 import { Pagination, Preloader } from 'react-materialize'
 
@@ -13,8 +13,6 @@ import isBrowser from '../../utils/isBrowser'
 
 import type { ImageResult as ImageResultType } from '../../types/search-results'
 import type ImageResultProps from '../../types/search-results/ImageResultProps'
-import type ImgurGallerySearchOptions from '../../types/services/ImgurGallerySearchOptions'
-import { mutate } from 'swr'
 
 const SearchResult = () => {
   const root = useRef(null)
@@ -87,8 +85,9 @@ const SearchResult = () => {
           )
         })}
       </main>
-      <footer>
+      <footer className={styles.footer}>
         <Pagination
+          className={styles.pagination}
           activePage={activePage}
           items={5}
           onSelect={(page: number) => setActivePage(page)}

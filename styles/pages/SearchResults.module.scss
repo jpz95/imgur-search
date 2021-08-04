@@ -28,3 +28,14 @@
   grid-column: 1 / -1;
   color: #424242;
 }
+
+.footer {
+  display: flex;
+  justify-content: center;
+}
+
+.pagination {
+  li.active {
+    background-color: green;
+  }
+}
