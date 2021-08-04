@@ -5,17 +5,19 @@ const baseUrl = 'https://api.imgur.com/3'
 const headers = new Headers()
 headers.append('Authorization', `Client-ID ${process.env.NEXT_PUBLIC_CLIENT_ID}`)
 
-export function getGallerySearch(queryString: string, options?: ImgurGallerySearchOptions) {
+export function getGallerySearch(queryString: string, options: ImgurGallerySearchOptions = {}) {
   const basePath = '/gallery/search'
 
-  const pathWithOptions = Object.keys(options || {})
+  const pathWithOptions = Object.keys(options)
+    .filter((key) => typeof options[key] !== 'undefined')
     .reduce(
-      (accumulator: string, path: keyof ImgurGallerySearchOptions) => {
-        if (!path) {
+      (accumulator: string, key: keyof ImgurGallerySearchOptions) => {
+        if (!key || !options) {
           return accumulator
         }
 
-        return `${accumulator}/${path}`
+        const pathToAdd = options[key]
+        return `${accumulator}/${pathToAdd}`
       },
       basePath
     )

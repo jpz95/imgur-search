@@ -1,6 +1,6 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
-import { Button, Select, Preloader } from 'react-materialize'
+import { Pagination, Preloader } from 'react-materialize'
 
 import styles from '../../styles/pages/SearchResults.module.scss'
 
@@ -14,9 +14,15 @@ import isBrowser from '../../utils/isBrowser'
 import type { ImageResult as ImageResultType } from '../../types/search-results'
 import type ImageResultProps from '../../types/search-results/ImageResultProps'
 import type ImgurGallerySearchOptions from '../../types/services/ImgurGallerySearchOptions'
+import { mutate } from 'swr'
 
 const SearchResult = () => {
   const root = useRef(null)
+
+  const router = useRouter()
+  const { searchId = '' } = router.query
+
+  const query = Array.isArray(searchId) ? searchId.join(' ') : searchId
 
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [modalData, setModalData] = useState({})
@@ -28,16 +34,12 @@ const SearchResult = () => {
 
   const handleModalClose = () => {
     setIsModalOpen(false)
+    setModalData({})
   }
 
-  const router = useRouter()
-  const { searchId = '' } = router.query
+  const [activePage, setActivePage] = useState<number>(1)
 
-  const query = Array.isArray(searchId) ? searchId.join(' ') : searchId
-
-  const { data: results, state } = useImgurGallerySearch(query, {
-    page: 1
-  } as ImgurGallerySearchOptions)
+  const { data: results, state } = useImgurGallerySearch(query, activePage - 1)
 
   return (
     <div className={styles.searchResult} ref={root}>
@@ -85,6 +87,13 @@ const SearchResult = () => {
           )
         })}
       </main>
+      <footer>
+        <Pagination
+          activePage={activePage}
+          items={5}
+          onSelect={(page: number) => setActivePage(page)}
+        />
+      </footer>
       {isBrowser() && root?.current &&
         <FullImageModal
           imageData={modalData}
