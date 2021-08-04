@@ -1,6 +1,8 @@
 import Image from "next/image"
 import { Button, Modal, Icon } from "react-materialize"
 
+import isBrowser from "../../utils/isBrowser"
+
 import FullImageModalProps from "../../types/search-results/FullImageModalProps"
 
 import styles from "./FullImageModal.module.scss"
@@ -12,7 +14,7 @@ const FullImageModal = (props: FullImageModalProps) => {
     window.open(imageData.externalUrl, '_blank', 'noopener')
   }
 
-  if (typeof window === 'undefined' || !props.root) {
+  if (!isBrowser || !props.root) {
     return <div></div>
   }
 
